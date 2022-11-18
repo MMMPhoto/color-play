@@ -7,7 +7,8 @@ class Board extends React.Component {
         <Square
             key={i}
             value={i}
-            onClick={() => this.props.onClick(i)} 
+            onClick={() => this.props.onClick(i)}
+            color={this.props.color}
         />
       );
     };
