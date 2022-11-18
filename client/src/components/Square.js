@@ -4,7 +4,7 @@ export default function Square(props) {
         className="square" 
         onClick={props.onClick}
         style={{
-          backgroundColor: props.color
+          backgroundColor: props.value
         }}
         >
         {props.value}

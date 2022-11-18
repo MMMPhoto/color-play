@@ -6,32 +6,34 @@ class Game extends React.Component {
       super(props);
       this.state = {
         history: [{
-          squares: Array(9).fill(null)
+          squareColor: Array(1056).fill("#FFF")
         }],
         stepNumber: 0,
         xIsNext: true,
-        color: "#FF0000"
+        color: "#FFF"
       };
+      console.log(this.state.history);
     };
   
     handleClick(i) {
-      // const history = this.state.history.slice(0, this.state.stepNumber + 1 );
-      // const current = history[history.length - 1];
-      // const squares = current.squares.slice();
+      const history = this.state.history.slice(0, this.state.stepNumber + 1 );
+      const current = history[history.length - 1];
+      const squareColor = current.squareColor.slice();
       // if (calculateWinner(squares) || squares[i]) {
       //   return;
       // };
-      // squares[i] = this.state.xIsNext ? 'X' : 'O';
-      // this.setState({
-      //   history: history.concat([{
-      //     squares: squares
-      //   }]),
-      //   stepNumber: history.length,
-      //   xIsNext: !this.state.xIsNext
-      // });
-      // this.setState({
+      console.log(`square ${i} clicked`);
+      console.log(this.state.xIsNext);
+      console.log(squareColor);
+      squareColor[i] = this.state.xIsNext ? '#FF0000' : '#00FF00';
 
-      // })
+      this.setState({
+        history: history.concat([{
+          squareColor: squareColor
+        }]),
+        stepNumber: history.length,
+        xIsNext: !this.state.xIsNext
+      });
     };
   
     jumpTo(step) {
@@ -67,7 +69,7 @@ class Game extends React.Component {
         <div className="game">
           <div className="game-board">
             <Board 
-              squares={current.squares}
+              squareColor={current.squareColor}
               onClick={(i) => this.handleClick(i)}
               color={this.state.color}
             />
