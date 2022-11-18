@@ -1,0 +1,22 @@
+{
+  "name": "react-tick-tack-toe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MMMPhoto/react-tick-tack-toe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MMMPhoto/react-tick-tack-toe/issues"
+  },
+  "homepage": "https://github.com/MMMPhoto/react-tick-tack-toe#readme",
+  "dependencies": {
+    "create-react-app": "^5.0.1"
+  }
+}
