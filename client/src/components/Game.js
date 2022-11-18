@@ -33,7 +33,10 @@ export default function Game() {
       console.log(`fresh click: ${freshClick}`);
       // Check for squares adjacent to click
       const updatedColor = currentSquareColors.map((square, index) => {
-        if (index === freshClick-1 || index === freshClick+1 || index === freshClick-44 || index === freshClick+44 ) {
+        if (( index === freshClick-1 && freshClick % 44 !== 0 ) ||
+            ( index === freshClick+1 && (freshClick+1) % 44 !== 0 ) ||
+            ( index === freshClick-44 ) || 
+            ( index === freshClick+44 )) {
           return '#FF0000';
         } else {
           return square;
