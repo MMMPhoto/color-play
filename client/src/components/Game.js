@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Board from './Board';
 
 export default function Game() {
-  const initialState = {squareColor: Array(1056).fill("#FFF")};
+  const initialState = Array(1056).fill("#FFF");
   // console.log(initialState);
 
   // const [stepNumber, setStepNumber]= useState(0);
   const [history, setHistory] = useState([initialState]);
-  const [current, setCurrent] = useState({squareColor: Array(1056).fill("#FFF")});
+  const [currentSquareColor, setCurrentSquareColor] = useState(initialState);
 
 
   // useEffect(() => {
@@ -36,19 +36,19 @@ export default function Game() {
     //   return;
     // };
     console.log(`square ${i} clicked`);
-    console.log(current);
+    console.log(currentSquareColor);
 
-    // const updatedCurrent = current.map((item, index) => {
-    //   if (current[index] === i) {
-    //     return {squareColor: '#FF0000'};
-    //   } else {
-    //     return item;
-    //   };
+    const updatedColor = currentSquareColor.map((square, index) => {
+      if (index === i) {
+        return '#FF0000';
+      } else {
+        return square;
+      };
 
-    // });
-    // setCurrent(updatedCurrent);
-    console.log(current.squareColor[i]);
-    setCurrent[i] = '#FF0000';
+    });
+    setCurrentSquareColor(updatedColor);
+    console.log(currentSquareColor[i]);
+    // setCurrent[i] = '#FF0000';
 
 
 
@@ -94,7 +94,7 @@ export default function Game() {
         <div className="game">
           <div className="game-board">
             <Board 
-              squareColor={current.squareColor}
+              squareColor={currentSquareColor}
               onClick={(i) => handleClick(i)}
               // color={this.state.color}
             />
