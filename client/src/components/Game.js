@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Board from './Board';
 
 export default function Game() {
@@ -7,8 +8,8 @@ export default function Game() {
 
   // const [stepNumber, setStepNumber]= useState(0);
   const [history, setHistory] = useState([initialState]);
-  const [currentSquareColor, setCurrentSquareColor] = useState(initialState);
-
+  const [currentSquareColors, setCurrentSquareColors] = useState(initialState);
+  const [freshClick, setFreshClick] = useState(null);
 
   // useEffect(() => {
   //   setCurrent(history[history.length - 1]);
@@ -27,7 +28,24 @@ export default function Game() {
     //   };
     //   console.log(this.state.history);
     // };
-  
+  useEffect(() => {
+    if (freshClick) {
+      console.log(`fresh click: ${freshClick}`);
+      // Check for squares adjacent to click
+      const updatedColor = currentSquareColors.map((square, index) => {
+        if (index === freshClick-1 || index === freshClick+1 || index === freshClick-44 || index === freshClick+44 ) {
+          return '#FF0000';
+        } else {
+          return square;
+        };
+      });
+      setCurrentSquareColors(updatedColor);
+      setFreshClick(null);
+    };
+  }, [freshClick]);
+
+
+
   const handleClick = (i) => {
     // const history = this.state.history.slice(0, this.state.stepNumber + 1 );
     // const current = history[history.length - 1];
@@ -36,22 +54,18 @@ export default function Game() {
     //   return;
     // };
     console.log(`square ${i} clicked`);
-    console.log(currentSquareColor);
-
-    const updatedColor = currentSquareColor.map((square, index) => {
+    console.log(currentSquareColors);
+    const updatedColor = currentSquareColors.map((square, index) => {
       if (index === i) {
         return '#FF0000';
       } else {
         return square;
       };
-
     });
-    setCurrentSquareColor(updatedColor);
-    console.log(currentSquareColor[i]);
+    setCurrentSquareColors(updatedColor);
+    setFreshClick(i);
+    console.log(currentSquareColors[i]);
     // setCurrent[i] = '#FF0000';
-
-
-
     // setHistory({
     //   history: history.concat([{
     //     squareColor: squareColor
@@ -60,6 +74,8 @@ export default function Game() {
     //   // xIsNext: !this.state.xIsNext
     // });
   };
+
+
   
     // const jumpTo = (step) => {
     //   this.setState({
@@ -94,7 +110,7 @@ export default function Game() {
         <div className="game">
           <div className="game-board">
             <Board 
-              squareColor={currentSquareColor}
+              squareColor={currentSquareColors}
               onClick={(i) => handleClick(i)}
               // color={this.state.color}
             />
