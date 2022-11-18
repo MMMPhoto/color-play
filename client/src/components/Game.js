@@ -25,7 +25,7 @@ class Game extends React.Component {
       console.log(`square ${i} clicked`);
       console.log(this.state.xIsNext);
       console.log(squareColor);
-      squareColor[i] = this.state.xIsNext ? '#FF0000' : '#00FF00';
+      squareColor[i] = '#FF0000';
 
       this.setState({
         history: history.concat([{
