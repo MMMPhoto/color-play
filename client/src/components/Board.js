@@ -1,14 +1,14 @@
 import React from "react";
 import Square from './Square';
 
-export default function Board(props) {
+export default function Board({onClick, squareColor}) {
 
   const renderSquare = (i) => {
     return (
       <Square
           key={i}
-          onClick={() => props.onClick(i)}
-          color={props.squareColor[i]}
+          onClick={() => onClick(i)}
+          color={squareColor[i]}
       />
     );
   };

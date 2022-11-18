@@ -1,51 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Board from './Board';
 
-class Game extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        history: [{
-          squareColor: Array(1056).fill("#FFF")
-        }],
-        stepNumber: 0,
-        xIsNext: true,
-        color: "#FFF"
-      };
-      console.log(this.state.history);
-    };
-  
-    handleClick(i) {
-      const history = this.state.history.slice(0, this.state.stepNumber + 1 );
-      const current = history[history.length - 1];
-      const squareColor = current.squareColor.slice();
-      // if (calculateWinner(squares) || squares[i]) {
-      //   return;
-      // };
-      console.log(`square ${i} clicked`);
-      console.log(this.state.xIsNext);
-      console.log(squareColor);
-      squareColor[i] = '#FF0000';
+export default function Game() {
+  const initialState = {squareColor: Array(1056).fill("#FFF")};
+  // console.log(initialState);
 
-      this.setState({
-        history: history.concat([{
-          squareColor: squareColor
-        }]),
-        stepNumber: history.length,
-        xIsNext: !this.state.xIsNext
-      });
-    };
+  // const [stepNumber, setStepNumber]= useState(0);
+  const [history, setHistory] = useState([initialState]);
+  const [current, setCurrent] = useState({squareColor: Array(1056).fill("#FFF")});
+
+
+  // useEffect(() => {
+  //   setCurrent(history[history.length - 1]);
+  //   console.log(current);
+  // }, [history]);
+
+    // constructor(props) {
+    //   super(props);
+    //   this.state = {
+    //     history: [{
+    //       squareColor: Array(1056).fill("#FFF")
+    //     }],
+    //     stepNumber: 0,
+    //     xIsNext: true,
+    //     color: "#FFF"
+    //   };
+    //   console.log(this.state.history);
+    // };
   
-    jumpTo(step) {
-      this.setState({
-        stepNumber: step,
-        xIsNext: (step % 2) === 0,
-      })
-    }
+  const handleClick = (i) => {
+    // const history = this.state.history.slice(0, this.state.stepNumber + 1 );
+    // const current = history[history.length - 1];
+    // const squareColor = current.squareColor.slice();
+    // if (calculateWinner(squares) || squares[i]) {
+    //   return;
+    // };
+    console.log(`square ${i} clicked`);
+    console.log(current);
+
+    // const updatedCurrent = current.map((item, index) => {
+    //   if (current[index] === i) {
+    //     return {squareColor: '#FF0000'};
+    //   } else {
+    //     return item;
+    //   };
+
+    // });
+    // setCurrent(updatedCurrent);
+    console.log(current.squareColor[i]);
+    setCurrent[i] = '#FF0000';
+
+
+
+    // setHistory({
+    //   history: history.concat([{
+    //     squareColor: squareColor
+    //   }]),
+    //   stepNumber: history.length,
+    //   // xIsNext: !this.state.xIsNext
+    // });
+  };
   
-    render() {
-      const history = this.state.history;
-      const current = history[this.state.stepNumber];
+    // const jumpTo = (step) => {
+    //   this.setState({
+    //     stepNumber: step,
+    //     xIsNext: (step % 2) === 0,
+    //   })
+    // }
+  
+    // render() {
+    //   const history = this.state.history;
+    //   const current = history[this.state.stepNumber];
       // const winner = calculateWinner(current.squares);
   
       // const moves = history.map((step, move) => {
@@ -70,17 +95,17 @@ class Game extends React.Component {
           <div className="game-board">
             <Board 
               squareColor={current.squareColor}
-              onClick={(i) => this.handleClick(i)}
-              color={this.state.color}
+              onClick={(i) => handleClick(i)}
+              // color={this.state.color}
             />
           </div>
-          {/* <div className="game-info">
+        </div>
+            /* <div className="game-info">
             <div>{status}</div>
             <ol>{moves}</ol>
-          </div> */}
-        </div>
+          </div> */
       );
-    };
+    // };
 };
 
 // function calculateWinner(squares) {
@@ -103,4 +128,4 @@ class Game extends React.Component {
 //     return null;
 // };
 
-export default Game;
+// export default Game;
