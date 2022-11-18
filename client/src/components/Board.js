@@ -15,9 +15,9 @@ class Board extends React.Component {
     render() {
       return (
         <div>
-          {[...Array(3)].map((x, i) => (
+          {[...Array(24)].map((x, i) => (
               <div className="board-row" key={i}>
-              {[...Array(3)].map((y, j) => (
+              {[...Array(44)].map((y, j) => (
                 this.renderSquare(j+(i*3))
               ))}
               </div>
