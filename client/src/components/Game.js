@@ -3,6 +3,34 @@ import { useMediaQuery } from 'react-responsive';
 import Board from './Board';
 
 export default function Game() {
+
+  // Set Board Size
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  };
+  const [boardWidth, setBoardWidth] = useState(getWindowDimensions().width);
+  const [boardHeight, setBoardHeight] = useState(getWindowDimensions().height);
+
+
+
+  console.log(boardWidth);
+  console.log(boardHeight);
+
+
+
+  // for( let i=0; i<)
+
+  // useMediaQuery({ query: `(min-width: ${i*34}px)` })
+
+
+
+
+
+
   const initialState = Array(1056).fill("#FFF");
   // console.log(initialState);
 
