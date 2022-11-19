@@ -3,9 +3,7 @@ export default function Square(props) {
     <button 
       className="square" 
       onClick={props.onClick}
-      style={{
-        backgroundColor: props.color
-      }}
+      style={{ backgroundColor: `rgb(${props.red}, ${props.green}, ${props.blue})` }}
       >
     </button>
   );
