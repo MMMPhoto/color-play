@@ -3,7 +3,7 @@ import Board from './Board';
 
 export default function Game() {
 
-  // 
+  // Set Baord size state
   const [boardWidth, setBoardWidth] = useState(null);
   const [boardHeight, setBoardHeight] = useState(null);
 
@@ -24,11 +24,6 @@ export default function Game() {
 
   console.log(boardWidth);
   console.log(boardHeight);
-
-
-
-
-
 
   const initialState = Array(1056).fill("rgb(255, 255, 255)");
   // console.log(initialState);
@@ -60,10 +55,10 @@ export default function Game() {
       console.log(`fresh click: ${freshClick}`);
       // Check for squares adjacent to click
       const updatedColor = currentSquareColors.map((square, index) => {
-        if (( index === freshClick-1 && freshClick % 44 !== 0 ) ||
-            ( index === freshClick+1 && (freshClick+1) % 44 !== 0 ) ||
-            ( index === freshClick-44 ) || 
-            ( index === freshClick+44 )) {
+        if (( index === freshClick-1 && freshClick % boardWidth !== 0 ) ||
+            ( index === freshClick+1 && (freshClick+1) % boardWidth !== 0 ) ||
+            ( index === freshClick-boardWidth ) || 
+            ( index === freshClick+boardWidth )) {
           return "rgb(255, 150, 150)";
         } else {
           return square;
