@@ -3,7 +3,7 @@ import Board from './Board';
 
 export default function Game() {
 
-  // Set Baord size state
+  // Set Board Size State
   const [boardWidth, setBoardWidth] = useState(null);
   const [boardHeight, setBoardHeight] = useState(null);
 
@@ -25,8 +25,12 @@ export default function Game() {
   console.log(boardWidth);
   console.log(boardHeight);
 
-  const initialState = Array(1056).fill("rgb(255, 255, 255)");
-  // console.log(initialState);
+  // Set white squares
+  const [rValue, setRValue] = useState("255");
+  const [gValue, setGValue] = useState("255");
+  const [bValue, setBValue] = useState("255");
+
+  const initialState = Array(1056).fill(`rgb(${rValue}, ${gValue}, ${bValue}`);
 
   // const [stepNumber, setStepNumber]= useState(0);
   const [history, setHistory] = useState([initialState]);
@@ -69,8 +73,6 @@ export default function Game() {
     };
   }, [freshClick]);
 
-
-
   const handleClick = (i) => {
     // const history = this.state.history.slice(0, this.state.stepNumber + 1 );
     // const current = history[history.length - 1];
@@ -82,7 +84,7 @@ export default function Game() {
     console.log(currentSquareColors);
     const updatedColor = currentSquareColors.map((square, index) => {
       if (index === i) {
-        return "rgb(255, 0, 0)";
+        return "rgb(, 0, 0)";
       } else {
         return square;
       };
