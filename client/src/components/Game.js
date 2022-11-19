@@ -1,37 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import Board from './Board';
 
 export default function Game() {
 
-  // Set Board Size
-  const getWindowDimensions = () => {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height
+  // 
+  const [boardWidth, setBoardWidth] = useState(null);
+  const [boardHeight, setBoardHeight] = useState(null);
+
+  useEffect(() => {
+    // Get Window Size
+    const getWindowDimensions = () => {
+      const { innerWidth: width, innerHeight: height } = window;
+      return { width, height };
     };
-  };
-  const [boardWidth, setBoardWidth] = useState(getWindowDimensions().width);
-  const [boardHeight, setBoardHeight] = useState(getWindowDimensions().height);
-
-
+    // Set number of squares
+    const screenWidth = getWindowDimensions().width;
+    const screenHeight = getWindowDimensions().height;
+    const columns = (screenWidth - (screenWidth % 34))/34;
+    const rows = (screenHeight - (screenHeight % 34))/34;
+    setBoardWidth(columns);
+    setBoardHeight(rows);
+  }, []);
 
   console.log(boardWidth);
   console.log(boardHeight);
 
 
 
-  // for( let i=0; i<)
-
-  // useMediaQuery({ query: `(min-width: ${i*34}px)` })
 
 
 
-
-
-
-  const initialState = Array(1056).fill("#FFF");
+  const initialState = Array(1056).fill("rgb(255, 255, 255)");
   // console.log(initialState);
 
   // const [stepNumber, setStepNumber]= useState(0);
@@ -65,7 +64,7 @@ export default function Game() {
             ( index === freshClick+1 && (freshClick+1) % 44 !== 0 ) ||
             ( index === freshClick-44 ) || 
             ( index === freshClick+44 )) {
-          return '#FF0000';
+          return "rgb(255, 150, 150)";
         } else {
           return square;
         };
@@ -88,7 +87,7 @@ export default function Game() {
     console.log(currentSquareColors);
     const updatedColor = currentSquareColors.map((square, index) => {
       if (index === i) {
-        return '#FF0000';
+        return "rgb(255, 0, 0)";
       } else {
         return square;
       };
@@ -143,6 +142,8 @@ export default function Game() {
             <Board 
               squareColor={currentSquareColors}
               onClick={(i) => handleClick(i)}
+              boardWidth={boardWidth}
+              boardHeight={boardHeight}
               // color={this.state.color}
             />
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import Square from './Square';
 
-export default function Board({onClick, squareColor}) {
+export default function Board({ onClick, squareColor, boardWidth, boardHeight }) {
 
   const renderSquare = (i) => {
     return (
@@ -14,11 +14,11 @@ export default function Board({onClick, squareColor}) {
   };
 
   return (
-    <div>
-      {[...Array(24)].map((x, i) => (
+    <div className="m-1">
+      {[...Array(boardHeight)].map((x, i) => (
           <div className="board-row" key={i}>
-          {[...Array(44)].map((y, j) => (
-            renderSquare(j+(i*44))
+          {[...Array(boardWidth)].map((y, j) => (
+            renderSquare(j+(i*boardWidth))
           ))}
           </div>
       ))}
