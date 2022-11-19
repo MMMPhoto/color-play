@@ -43,32 +43,39 @@ export default function Game() {
   useEffect(() => {
     if (freshClick) {
       console.log(`fresh click: ${freshClick}`);
+      console.log(rValues);
       // Check for squares adjacent to click
-      const updatedRed = rValues.map((square, index) => {
+      const updatedRed = rValues.map((value, index) => {
         if (( index === freshClick-1 && freshClick % boardWidth !== 0 ) ||
             ( index === freshClick+1 && (freshClick+1) % boardWidth !== 0 ) ||
             ( index === freshClick-boardWidth ) || 
             ( index === freshClick+boardWidth )) {
-          return 255;
-        };
+          console.log(`Rvalue = ${value}`);
+          // const newValue = (255-value)/2
+          return value;
+        } else return value;
       });
       setRValues(updatedRed);
-      const updatedGreen = gValues.map((square, index) => {
+      const updatedGreen = gValues.map((value, index) => {
         if (( index === freshClick-1 && freshClick % boardWidth !== 0 ) ||
             ( index === freshClick+1 && (freshClick+1) % boardWidth !== 0 ) ||
             ( index === freshClick-boardWidth ) || 
             ( index === freshClick+boardWidth )) {
-          return 180;
-        };
+          console.log(`Gvalue = ${value}`);
+          const newValue = (value)/(1.5)
+          return newValue;
+        } else return value;
       });
       setGValues(updatedGreen);
-      const updatedBlue = bValues.map((square, index) => {
+      const updatedBlue = bValues.map((value, index) => {
         if (( index === freshClick-1 && freshClick % boardWidth !== 0 ) ||
             ( index === freshClick+1 && (freshClick+1) % boardWidth !== 0 ) ||
             ( index === freshClick-boardWidth ) || 
             ( index === freshClick+boardWidth )) {
-          return 180;
-        };
+          console.log(`Bvalue = ${value}`);
+          const newValue = (value)/(1.5)
+          return newValue;
+        } else return value;
       });
       setBValues(updatedBlue);
       setFreshClick(null);
@@ -83,24 +90,24 @@ export default function Game() {
     // const squareColor = current.squareColor.slice();
     console.log(`square ${i} clicked`);
     // Set Red
-    const updatedRed = rValues.map((square, index) => {
+    const updatedRed = rValues.map((value, index) => {
       if (index === i) {
         return 255;
-      };
+      } else return value;
     });
     setRValues(updatedRed);
     // Set Green
-    const updatedGreen = gValues.map((square, index) => {
+    const updatedGreen = gValues.map((value, index) => {
       if (index === i) {
         return 0;
-      };
+      } else return value;
     });
     setGValues(updatedGreen);
     // Set Blue
-    const updatedBlue = bValues.map((square, index) => {
+    const updatedBlue = bValues.map((value, index) => {
       if (index === i) {
         return 0;
-      };
+      } else return value;
     });
     setBValues(updatedBlue);
     setFreshClick(i);
@@ -114,11 +121,9 @@ export default function Game() {
           rValues ={rValues}
           gValues={gValues}
           bValues={bValues}
-          // squareColor={currentSquareColors}
           onClick={(i) => handleClick(i)}
           boardWidth={boardWidth}
           boardHeight={boardHeight}
-          // color={this.state.color}
         />
       </div>
     </div>
