@@ -6,6 +6,12 @@ export default function Game() {
   // Set Board Size State
   const [boardWidth, setBoardWidth] = useState(null);
   const [boardHeight, setBoardHeight] = useState(null);
+  const [boardSqares, setBoardSquares] = useState(null);
+  const [rValues, setRValues] = useState([]);
+  const [gValues, setGValues] = useState([]);
+  const [bValues, setBValues] = useState([]);
+  const [freshClick, setFreshClick] = useState(null);
+
 
   useEffect(() => {
     // Get Window Size
@@ -16,24 +22,25 @@ export default function Game() {
     // Set number of squares
     const screenWidth = getWindowDimensions().width;
     const screenHeight = getWindowDimensions().height;
-    const columns = (screenWidth - (screenWidth % 34))/34;
-    const rows = (screenHeight - (screenHeight % 34))/34;
+    const columns = (screenWidth - (screenWidth % 10))/10;
+    const rows = (screenHeight - (screenHeight % 10))/10;
+    const totalSquares = (rows * columns);
+    setBoardSquares(totalSquares);
     setBoardWidth(columns);
     setBoardHeight(rows);
+    setRValues(Array(totalSquares).fill(255));
+    setGValues(Array(totalSquares).fill(255));
+    setBValues(Array(totalSquares).fill(255));
   }, []);
 
   console.log(boardWidth);
   console.log(boardHeight);
 
-  const initialColorValues = Array(1056).fill(255);
+  // const initialColorValues = Array(8000).fill(255);
 
   // const [stepNumber, setStepNumber]= useState(0);
-  const [history, setHistory] = useState([initialColorValues]);
-  const [currentSquareColors, setCurrentSquareColors] = useState(initialColorValues);
-  const [rValues, setRValues] = useState(initialColorValues);
-  const [gValues, setGValues] = useState(initialColorValues);
-  const [bValues, setBValues] = useState(initialColorValues);
-  const [freshClick, setFreshClick] = useState(null);
+  // const [history, setHistory] = useState([initialColorValues]);
+  // const [currentSquareColors, setCurrentSquareColors] = useState(initialColorValues);
 
   // useEffect(() => {
   //   setCurrent(history[history.length - 1]);
@@ -45,17 +52,21 @@ export default function Game() {
       console.log(`fresh click: ${freshClick}`);
       console.log(rValues);
       // Check for squares adjacent to click
+
       const updatedRed = rValues.map((value, index) => {
         if (( index === freshClick-1 && freshClick % boardWidth !== 0 ) ||
             ( index === freshClick+1 && (freshClick+1) % boardWidth !== 0 ) ||
             ( index === freshClick-boardWidth ) || 
             ( index === freshClick+boardWidth )) {
           console.log(`Rvalue = ${value}`);
-          // const newValue = (255-value)/2
-          return value;
+          if (value < 255) {
+            const newValue = (value)/(1.5)
+            return newValue;
+          } else return value;
         } else return value;
       });
       setRValues(updatedRed);
+
       const updatedGreen = gValues.map((value, index) => {
         if (( index === freshClick-1 && freshClick % boardWidth !== 0 ) ||
             ( index === freshClick+1 && (freshClick+1) % boardWidth !== 0 ) ||
@@ -67,6 +78,7 @@ export default function Game() {
         } else return value;
       });
       setGValues(updatedGreen);
+      
       const updatedBlue = bValues.map((value, index) => {
         if (( index === freshClick-1 && freshClick % boardWidth !== 0 ) ||
             ( index === freshClick+1 && (freshClick+1) % boardWidth !== 0 ) ||
@@ -85,33 +97,20 @@ export default function Game() {
 
 
   const handleClick = (i) => {
-    // const history = this.state.history.slice(0, this.state.stepNumber + 1 );
-    // const current = history[history.length - 1];
-    // const squareColor = current.squareColor.slice();
     console.log(`square ${i} clicked`);
     // Set Red
-    const updatedRed = rValues.map((value, index) => {
-      if (index === i) {
-        return 255;
-      } else return value;
-    });
+    const updatedRed = rValues.slice();
+    updatedRed[i] = 255;  
     setRValues(updatedRed);
     // Set Green
-    const updatedGreen = gValues.map((value, index) => {
-      if (index === i) {
-        return 0;
-      } else return value;
-    });
+    const updatedGreen = gValues.slice();
+    updatedGreen[i] = 0; 
     setGValues(updatedGreen);
     // Set Blue
-    const updatedBlue = bValues.map((value, index) => {
-      if (index === i) {
-        return 0;
-      } else return value;
-    });
+    const updatedBlue = bValues.slice();
+    updatedBlue[i] = 0;
     setBValues(updatedBlue);
     setFreshClick(i);
-    console.log(currentSquareColors[i]);
   };
 
   return (
